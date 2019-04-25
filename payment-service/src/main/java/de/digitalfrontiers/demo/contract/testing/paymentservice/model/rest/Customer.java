@@ -5,13 +5,7 @@ import lombok.Data;
 @Data
 public class Customer {
 
-    private String id;
-
     private String name;
-
-    private String street;
-
-    private String city;
 
     private String iban;
 

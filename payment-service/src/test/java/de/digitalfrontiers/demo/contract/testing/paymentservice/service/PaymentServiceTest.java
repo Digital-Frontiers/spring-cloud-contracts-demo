@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @AutoConfigureStubRunner(
         stubsMode = StubRunnerProperties.StubsMode.LOCAL, // typically REMOTE -> Stubs in Artifactory or Nexus or ...
-        ids = {"de.digitalfrontiers.demo.contract.testing:customer-service:1.0.0.RELEASE:stubs:8383",
+        ids = {"de.digitalfrontiers.demo.contract.testing:customer-service:1.1.0.RELEASE:stubs:8383",
                 "de.digitalfrontiers.demo.contract.testing:order-service:1.0.0.RELEASE:stubs:8181",
                 "de.digitalfrontiers.demo.contract.testing:payment-provider-contract-proxy:1.0.0.RELEASE:stubs:9191"}
 )

@@ -15,24 +15,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @AutoConfigureStubRunner(
         stubsMode = StubRunnerProperties.StubsMode.LOCAL, // typically REMOTE -> Stubs in Artifactory or Nexus or ...
-        ids = "de.digitalfrontiers.demo.contract.testing:customer-service:1.0.0.RELEASE:stubs:8383"
+        ids = "de.digitalfrontiers.demo.contract.testing:customer-service:1.1.0.RELEASE:stubs:8383"
 )
 public class CustomerServiceTest {
 
     @Autowired
     private CustomerService cut;
-
-    @Test
-    public void testGetCustomer() {
-        Customer customer = cut.getCustomer("banana");
-
-        assertThat(customer.getId()).isEqualTo("banana");
-        assertThat(customer.getName()).isEqualTo("Ban Ana");
-        assertThat(customer.getStreet()).isEqualTo("Magic Street 38");
-        assertThat(customer.getCity()).isEqualTo("0000 Bielefeld");
-        assertThat(customer.getIban()).isEqualTo("YY565678567895678");
-        assertThat(customer.getBic()).isEqualTo("OtherBank");
-    }
 
     @Test
     public void testGetCustomerAddress() {

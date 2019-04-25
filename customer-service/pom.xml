@@ -10,12 +10,15 @@
     </parent>
     <groupId>de.digitalfrontiers.demo.contract.testing</groupId>
     <artifactId>customer-service</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <version>1.1.0.RELEASE</version>
     <name>Customer Service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
+
+        <!-- Spring Cloud Contract -->
+        <api.compatibility.version>1.0.0.RELEASE</api.compatibility.version>
     </properties>
 
     <dependencies>
@@ -65,4 +68,64 @@
             </plugin>
         </plugins>
     </build>
+
+    <!--Backward Compatibility Test-->
+    <profiles>
+        <profile>
+            <id>backwardCompatibilityTest</id>
+
+            <build>
+                <plugins>
+
+                    <!-- Include Test Classes for API Tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <configuration>
+                            <includes>
+                                <include>de/digitalfrontiers/**/*Tests.java</include>
+                                <include>de/digitalfrontiers/**/*Test.java</include>
+                                <include>de/digitalfrontiers/**/*Base.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                    <!-- no deploy on backward compatibility test -->
+                    <plugin>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+
+                    <!-- no install on backward compatibility test -->
+                    <plugin>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.cloud</groupId>
+                        <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                        <version>2.1.0.RELEASE</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <testMode>MOCKMVC</testMode>
+                            <contractsMode>LOCAL</contractsMode>
+                            <basePackageForTests>de.digitalfrontiers.demo.contract.testing.customerservice.contract.tests</basePackageForTests>
+                            <packageWithBaseClasses>de.digitalfrontiers.demo.contract.testing.customerservice.contract.tests</packageWithBaseClasses>
+                            <contractsPath>contracts</contractsPath>
+                            <contractDependency>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>${project.artifactId}</artifactId>
+                                <classifier>stubs</classifier>
+                                <version>${api.compatibility.version}</version>
+                            </contractDependency>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

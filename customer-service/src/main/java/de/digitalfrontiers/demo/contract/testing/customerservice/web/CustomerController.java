@@ -57,11 +57,13 @@ public class CustomerController {
     @Data
     public static class PaymentResponse {
 
+        private String name;
         private String iban;
         private String bic;
 
         public static PaymentResponse from(Customer customer) {
             PaymentResponse paymentResponse = new PaymentResponse();
+            paymentResponse.setName(customer.getName());
             paymentResponse.setIban(customer.getIban());
             paymentResponse.setBic(customer.getBic());
             return paymentResponse;

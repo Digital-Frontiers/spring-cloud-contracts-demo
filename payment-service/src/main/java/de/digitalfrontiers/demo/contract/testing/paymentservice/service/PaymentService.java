@@ -47,7 +47,7 @@ public class PaymentService {
     }
 
     private void requestPayment(Order order) {
-        Customer customer = customerService.getCustomer(order.getCustomer());
+        Customer customer = customerService.getCustomerPaymentInfo(order.getCustomer());
         log.info("requested customer details for customer {}, received: {}", order.getCustomer(), customer);
 
         if (order.getTransactionId() == null) {

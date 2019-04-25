@@ -40,7 +40,7 @@ public class ShippingService {
     }
 
     private void shipOrder(Order order) {
-        Customer customer = customerService.getCustomer(order.getCustomer());
+        Customer customer = customerService.getCustomerAddress(order.getCustomer());
         log.info("requested customer details for customer {}, received: {}", order.getCustomer(), customer);
 
         orderService.markShipped(order.getId());
