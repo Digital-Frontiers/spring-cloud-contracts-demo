@@ -16,12 +16,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/{customer}")
-    public Customer getCustomer(@PathVariable("customer") String customer) {
-        log.info("received request for customer {}", customer);
-        return customerService.getCustomer(customer);
-    }
-
     @GetMapping("/{customer}/address")
     public AddressResponse getAddress(@PathVariable("customer") String customer) {
         return AddressResponse.from(customerService.getCustomer(customer));
